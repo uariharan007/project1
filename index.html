@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ari Shop - Online Shopping</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #e3e6e6;
+}
+
+/* Header */
+header {
+    background: #131921;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 28px;
+    color: #ff9900;
+    font-weight: bold;
+}
+
+.search {
+    display: flex;
+    flex: 1;
+    max-width: 600px;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+}
+
+.search button {
+    padding: 12px 20px;
+    border: none;
+    background: #febd69;
+    cursor: pointer;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Navigation */
+nav {
+    background: #232f3e;
+    padding: 15px;
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Banner */
+.banner {
+    background: linear-gradient(120deg,#243b55,#141e30);
+    color: white;
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.banner h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.banner p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.banner button {
+    background: #ff9900;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Category */
+.section-title {
+    margin: 25px 20px;
+}
+
+.categories {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.category {
+    background: white;
+    padding: 25px;
+    min-width: 140px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Products */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px #aaa;
+}
+
+.product img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.product h3 {
+    margin: 12px 0;
+}
+
+.price {
+    color: #b12704;
+    font-size: 21px;
+    font-weight: bold;
+    margin: 12px;
+}
+
+.product button {
+    background: #ffd814;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.product button:hover {
+    background: #f7ca00;
+}
+
+/* Cart */
+.cart-section {
+    background: white;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.cart-row {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.remove {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.checkout {
+    background: #ffa41c;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    background: #131921;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+/* Mobile */
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+    }
+
+    .search {
+        flex-basis: 100%;
+        order: 3;
+    }
+
+    .banner h1 {
+        font-size: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">ARI SHOP</div>
+
+    <div class="search">
+        <input type="text" id="searchInput"
+        placeholder="Search products...">
+        <button onclick="searchProducts()">🔍</button>
+    </div>
+
+    <a href="#products">Products</a>
+
+    <a href="#cart">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </a>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="#">☰ All</a>
+    <a href="#products">Electronics</a>
+    <a href="#products">Fashion</a>
+    <a href="#products">Home & Kitchen</a>
+    <a href="#products">Best Deals</a>
+</nav>
+
+<!-- BANNER -->
+<section class="banner">
+    <h1>Welcome to Ari Shop!</h1>
+    <p>Everything You Need, All in One Place.</p>
+    <button onclick="location.href='#products'">
+        Shop Now
+    </button>
+</section>
+
+<!-- CATEGORIES -->
+<h2 class="section-title">Shop By Category</h2>
+
+<section class="categories">
+    <div class="category"
+    onclick="filterCategory('Electronics')">📱 Electronics</div>
+
+    <div class="category"
+    onclick="filterCategory('Fashion')">👕 Fashion</div>
+
+    <div class="category"
+    onclick="filterCategory('Home')">🏠 Home</div>
+
+    <div class="category"
+    onclick="filterCategory('Accessories')">⌚ Accessories</div>
+</section>
+
+<!-- PRODUCTS -->
+<h2 class="section-title" id="products">
+    Today's Best Deals
+</h2>
+
+<section class="products" id="productList">
+
+    <div class="product" data-category="Electronics">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"
+        alt="Wireless Headphones">
+
+        <h3>Wireless Headphones</h3>
+        <p>Premium Sound Quality</p>
+        <div class="price">₹1,499</div>
+
+        <button onclick="addToCart('Wireless Headphones',1499)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="product" data-category="Electronics">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600"
+        alt="Smartphone">
+
+        <h3>Smartphone</h3>
+        <p>Latest Android Phone</p>
+        <div class="price">₹12,999</div>
+
+        <button onclick="addToCart('Smartphone',12999)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="product" data-category="Fashion">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+        alt="Sports Shoes">
+
+        <h3>Sports Shoes</h3>
+        <p>Comfortable Running Shoes</p>
+        <div class="price">₹1,999</div>
+
+        <button onclick="addToCart('Sports Shoes',1999)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="product" data-category="Fashion">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600"
+        alt="T Shirt">
+
+        <h3>Men's T-Shirt</h3>
+        <p>Premium Cotton T-Shirt</p>
+        <div class="price">₹599</div>
+
+        <button onclick="addToCart('Mens T-Shirt',599)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="product" data-category="Accessories">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+        alt="Smart Watch">
+
+        <h3>Smart Watch</h3>
+        <p>Fitness Tracking Watch</p>
+        <div class="price">₹2,499</div>
+
+        <button onclick="addToCart('Smart Watch',2499)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="product" data-category="Home">
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600"
+        alt="Backpack">
+
+        <h3>Travel Backpack</h3>
+        <p>Stylish Travel Bag</p>
+        <div class="price">₹999</div>
+
+        <button onclick="addToCart('Travel Backpack',999)">
+            Add to Cart
+        </button>
+    </div>
+
+</section>
+
+<!-- SHOPPING CART -->
+<section class="cart-section" id="cart">
+
+    <h2>🛒 Your Shopping Cart</h2>
+
+    <div id="cartItems">
+        Your cart is empty.
+    </div>
+
+    <br>
+
+    <h3>Total: ₹<span id="total">0</span></h3>
+
+    <br>
+
+    <button class="checkout" onclick="checkout()">
+        Proceed to Checkout
+    </button>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <h2>ARI SHOP</h2>
+    <p>Online Shopping Made Easy</p>
+    <br>
+    <p>© 2026 Ari Shop. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+let cart = [];
+
+function addToCart(name,price) {
+
+    cart.push({name,price});
+
+    updateCart();
+
+    alert(name + " added to cart!");
+}
+
+function updateCart() {
+
+    let items = document.getElementById("cartItems");
+
+    let total = 0;
+
+    items.innerHTML = "";
+
+    cart.forEach((item,index) => {
+
+        total += item.price;
+
+        items.innerHTML += `
+            <div class="cart-row">
+                ${item.name} - ₹${item.price}
+
+                <button class="remove"
+                onclick="removeItem(${index})">
+                Remove
+                </button>
+            </div>
+        `;
+    });
+
+    if(cart.length === 0) {
+        items.innerHTML = "Your cart is empty.";
+    }
+
+    document.getElementById("total").innerText = total;
+
+    document.getElementById("cartCount").innerText = cart.length;
+}
+
+function removeItem(index) {
+
+    cart.splice(index,1);
+
+    updateCart();
+}
+
+function searchProducts() {
+
+    let search = document.getElementById("searchInput")
+    .value.toLowerCase();
+
+    let products = document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+        let name = product.innerText.toLowerCase();
+
+        product.style.display =
+        name.includes(search) ? "block" : "none";
+    });
+}
+
+function filterCategory(category) {
+
+    let products = document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+        product.style.display =
+        product.dataset.category === category
+        ? "block" : "none";
+    });
+
+    document.getElementById("products").scrollIntoView();
+}
+
+function checkout() {
+
+    if(cart.length === 0) {
+
+        alert("Your cart is empty!");
+
+    } else {
+
+        alert("Demo Checkout! Payment gateway not connected.");
+
+    }
+}
+
+</script>
+
+</body>
+</html>
